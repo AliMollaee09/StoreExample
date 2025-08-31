@@ -1,0 +1,139 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Endpoint.Site.Areas.Admin.ViewModels.Users
+@{
+	ViewData["Title"] = "Create";
+	Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card-body p-5">
+	<div class="card-title d-flex align-items-center">
+		<div>
+			<i class="bx bxs-user me-1 font-22 text-white"></i>
+		</div>
+		<h5 class="mb-0 text-white">فرم ثبت نام کاربر</h5>
+	</div>
+	<hr>
+	<section class="row g-3">
+
+		<div class="col-md-12">
+			<label for="inputLastName2" class="form-label">نام و نام خانوادگی</label>
+			<div class="input-group">
+				<span class="input-group-text"><i class="bx bxs-user"></i></span>
+				<input type="text" class="form-control border-start-0" id="FullName" placeholder="نام خانوادگی">
+			</div>
+		</div>
+
+		<div class="col-12">
+			<label for="inputEmailAddress" class="form-label">آدرس ایمیل</label>
+			<div class="input-group">
+				<span class="input-group-text"><i class="bx bxs-message"></i></span>
+				<input type="text" class="form-control border-start-0" id="Email" placeholder="info@gmail.com">
+			</div>
+		</div>
+		<div class="col-12">
+			<label for="inputChoosePassword" class="form-label"> رمز عبور</label>
+			<div class="input-group">
+				<span class="input-group-text"><i class="bx bxs-lock-open"></i></span>
+				<input type="text" class="form-control border-start-0" id="Password" placeholder=" رمز عبور">
+			</div>
+		</div>
+		<div class="col-12">
+			<label for="inputConfirmPassword" class="form-label">تکرار رمز عبور</label>
+			<div class="input-group">
+				<span class="input-group-text"><i class="bx bxs-lock"></i></span>
+				<input type="text" class="form-control border-start-0" id="RePassword" placeholder="تکرار رمز عبور">
+			</div>
+		</div>
+		<div class="col-12">
+
+			<label for="inputState" class="form-label">نقش</label>
+			<select id="Roles" class="form-select" name="Roles" asp-items="ViewBag.Roles">
+				<option selected="">انتخاب کنید...</option>
+				<option>...</option>
+			</select>
+		</div>
+		<div class="col-12">
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" id="gridCheck2">
+				<label class="form-check-label" for="gridCheck2">قوانین سایت را میپذیرم</label>
+			</div>
+		</div>
+		<div class="col-12">
+			<a onclick="Registeruser()" class="btn btn-light px-5">ثبت نام</a>
+		</div>
+	</section>
+</div>
+
+@section Scripts
+{
+	<link href="~/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+	<script src="~/sweetalert2/sweetalert2.all.min.js"></script>
+
+	<script>
+		function Registeruser() {
+			swal.fire({
+				title: 'ثبت نام کاربر',
+				text: "آیا میخواهید ثبت نام کاربر را انجام دهید؟",
+				icon: 'info',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'بله ثبت نام انجام شود',
+				cancelButtonText: 'خیر'
+			}).then((result) => {
+				if (result.value) {
+
+					var fullname = $("#FullName").val();
+					var email = $("#Email").val();
+					var RoleId = $("#Roles").val();
+					var Password = $("#Password").val();
+					var RePassword = $("#RePassword").val();
+
+					var postData = {
+						'fullName': fullname,
+						'email': email,
+						'roleId': RoleId,
+						'password': Password,
+						'rePasword': RePassword,
+					};
+
+					$.ajax({
+						contentType: 'application/x-www-form-urlencoded',
+						dataType: 'json',
+						type: "POST",
+						url: "Create",
+						data: postData,
+						success: function (data) {
+							if (data.isSuccess == true) {
+								swal.fire(
+									'موفق!',
+									data.message,
+									'success'
+								).then(function (isConfirm) {
+									location.reload();
+								});
+
+
+							}
+							else {
+
+								swal.fire(
+									'هشدار!',
+									data.message,
+									'warning'
+								);
+
+							}
+						},
+						error: function (request, status, error) {
+							alert(request.responseText);
+						}
+
+					});
+
+				}
+			})
+		}
+	</script>
+}
+

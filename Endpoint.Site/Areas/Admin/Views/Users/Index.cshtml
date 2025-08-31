@@ -1,0 +1,269 @@
+﻿@using Store_Example.Application.Services.Users.Queries.GetUsers
+@model ResultGetUsersDto;
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card">
+	<div class="card-body">
+		<div class="card-title">
+			<h5 class="mb-0">
+				کاربران
+			</h5>
+		</div>
+		<hr>
+		<div class="table-responsive">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">
+							نام و نام خانوادگی
+						</th>
+						<th scope="col">
+							ایمیل
+						</th>
+						<th scope="col">
+							عملیات
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model.Users)
+					{
+
+						<tr>
+							<td>@item.FullName</td>
+							<td>@item.Email</td>
+							<td>
+								<input type="button" value="حذف" class="btn btn-danger m-2" onclick="DeleteUser('@item.Id')" />
+								<input type="button" value="ویرایش" class="btn btn-warning m-2" onclick="ShowModalEdituser('@item.Id','@item.FullName')" />
+								@if (item.IsActive)
+								{
+									<input type="button" value="غیرفعال کردن" class="btn btn-danger m-2" onclick="UserSatusChange('@item.Id')" />
+								}
+								else
+								{
+									<input type="button" value=" فعال کردن " class="btn btn-info m-2" onclick="UserSatusChange('@item.Id')" />
+
+								}
+
+
+
+							</td>
+						</tr>
+
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+@section Scripts
+{
+
+	<link href="~/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+	<script src="~/sweetalert2/sweetalert2.all.min.js"></script>
+
+	<script>
+
+
+		function DeleteUser(UserId) {
+			swal.fire({
+				title: 'حذف کاربر',
+				text: "کاربر گرامی از حذف کاربر مطمئن هستید؟",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#d33',
+				cancelButtonColor: '#7cacbe',
+				confirmButtonText: 'بله ، کاربر حذف شود',
+				cancelButtonText: 'خیر'
+			}).then((result) => {
+				if (result.value) {
+					var postData = {
+						'UserId': UserId,
+					};
+
+					$.ajax({
+						contentType: 'application/x-www-form-urlencoded',
+						dataType: 'json',
+						type: "POST",
+						url: "Delete",
+						data: postData,
+						success: function (data) {
+							if (data.isSuccess == true) {
+								swal.fire(
+									'موفق!',
+									data.message,
+									'success'
+								).then(function (isConfirm) {
+									location.reload();
+								});
+							}
+							else {
+
+								swal.fire(
+									'هشدار!',
+									data.message,
+									'warning'
+								);
+
+							}
+						},
+						error: function (request, status, error) {
+							alert(request.responseText);
+						}
+
+					});
+
+				}
+			})
+		}
+
+
+		function UserSatusChange(UserId) {
+			swal.fire({
+				title: 'تغییر وضعیت کاربر',
+				text: "کاربر گرامی از تغییر وضعیت کاربر مطمئن هستید؟",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#d33',
+				cancelButtonColor: '#7cacbe',
+				confirmButtonText: 'بله ، تغییر وضعیت انجام شود',
+				cancelButtonText: 'خیر'
+			}).then((result) => {
+				if (result.value) {
+
+					var postData = {
+						'userId': UserId,
+					};
+
+					$.ajax({
+						contentType: 'application/x-www-form-urlencoded',
+						dataType: 'json',
+						type: "POST",
+						url: "UserSatusChange",
+						data: postData,
+						success: function (data) {
+							if (data.isSuccess == true) {
+								swal.fire(
+									'موفق!',
+									data.message,
+									'success'
+								).then(function (isConfirm) {
+									location.reload();
+								});
+							}
+							else {
+
+								swal.fire(
+									'هشدار!',
+									data.message,
+									'warning'
+								);
+
+							}
+						},
+						error: function (request, status, error) {
+							alert(request.responseText);
+						}
+
+					});
+
+				}
+			})
+		}
+
+
+		function Edituser() {
+
+			var userId = $("#Edit_UserId").val();
+			var fullName = $("#Edit_Fullname").val();
+
+			var postData = {
+				'userId': userId,
+				'fullname': fullName,
+			};
+
+
+			$.ajax({
+				contentType: 'application/x-www-form-urlencoded',
+				dataType: 'json',
+				type: "POST",
+				url: "Edit",
+				data: postData,
+				success: function (data) {
+					if (data.isSuccess == true) {
+						swal.fire(
+							'موفق!',
+							data.message,
+							'success'
+						).then(function (isConfirm) {
+							location.reload();
+						});
+					}
+					else {
+						swal.fire(
+							'هشدار!',
+							data.message,
+							'warning'
+						);
+					}
+				},
+				error: function (request, status, error) {
+					alert(request.responseText);
+				}
+			});
+
+			$('#EditUser').modal('hide');
+
+		}
+
+
+		function ShowModalEdituser(UserId, fullName) {
+			$('#Edit_Fullname').val(fullName)
+			$('#Edit_UserId').val(UserId)
+
+			$('#EditUser').modal('show');
+
+		}
+
+	</script>
+
+
+
+
+
+
+}
+
+@section Modals
+{
+	<!-- Modal Edit User -->
+	<div class="modal fade" id="EditUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">ویرایش کاربر</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="col-xl-12 col-lg-12 col-md-12 mb-1">
+						<fieldset class="form-group">
+							<input type="hidden" id="Edit_UserId" />
+							<label for="basicInput">نام و نام خانوادگی</label>
+							<input type="text" class="form-control" id="Edit_Fullname">
+						</fieldset>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a class="btn btn-secondary" data-dismiss="modal">بستن</a>
+					<a class="btn btn-primary" onclick="Edituser()">اعمال تغییرات</a>
+				</div>
+			</div>
+		</div>
+	</div>
+}

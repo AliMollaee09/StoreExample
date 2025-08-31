@@ -1,0 +1,64 @@
+﻿@model List<Endpoint.Site.Areas.Admin.Models.ViewModels.CategoryViewModels.GetCategoryVM>
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<a href="~/admin/categories/addnewcategory" class="btn btn-success">افزودن دسته بندی جدید</a>
+
+
+<div class="card">
+	<div class="card-body">
+		<div class="card-title">
+			<h5 class="mb-0">
+				کاربران
+			</h5>
+		</div>
+		<hr>
+		<div class="table-responsive">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">
+							دسته بندی
+						</th>
+						<th scope="col">
+							پدر
+						</th>
+						<th scope="col">
+							فرزند
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in @Model)
+					{
+
+						<tr>
+							<td>@item.Name</td>
+							<td>@item?.Parent?.Name</td>
+							<td>
+								<a href="~/Admin/Categories/AddNewCategory?parentId=@item.Id" type="button" class="btn btn-success m-2"> افزودن</a>
+								@if (item.HasChild.GetValueOrDefault())
+								{
+									<a href="~/Admin/Categories/index?parentId=@item.Id" type="button" class="btn btn-success m-2"> مشاهده فرزند ها</a>
+
+								}
+
+							</td>
+						</tr>
+
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+@section Scripts
+{
+
+
+
+}
+

@@ -1,0 +1,268 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model Endpoint.Site.Areas.Admin.ViewModels.Product.RequestAddNewProductVM
+@{
+	ViewData["Title"] = "AddNewProduct";
+	Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+	<div class="breadcrumb-title pe-3">تجارت الکترونیک</div>
+	<div class="ps-3">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb mb-0 p-0">
+				<li class="breadcrumb-item">
+					<a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+				</li>
+				<li class="breadcrumb-item active" aria-current="page">افزودن محصول جدید</li>
+			</ol>
+		</nav>
+	</div>
+	<div class="ms-auto">
+		<div class="btn-group">
+			<button type="button" class="btn btn-light">تنظیمات</button>
+			<button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
+				<span class="visually-hidden">فعال کردن منو</span>
+			</button>
+			<div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">
+				<a class="dropdown-item" href="javascript:;">عمل</a>
+				<a class="dropdown-item" href="javascript:;">یک اقدام دیگر</a>
+				<a class="dropdown-item" href="javascript:;">یه چیز دیگه اینجا</a>
+				<div class="dropdown-divider"></div>	<a class="dropdown-item" href="javascript:;">لینک جدا شده</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!--end breadcrumb-->
+
+<div class="card">
+	<div class="card-body p-4">
+		<h5 class="card-title">افزودن محصول جدید</h5>
+		<hr />
+		<div class="form-body mt-4">
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="border border-3 p-4 rounded">
+						<div class="mb-3">
+							<label for="Name" class="form-label">عنوان محصول</label>
+							<input type="text" class="form-control" id="Name" placeholder="عنوان محصول را وارد کنید" asp-for="Name">
+							<span asp-validation-for="Name"></span>
+
+						</div>
+						<div class="mb-3">
+							<label for="Description" class="form-label">توضیحات</label>
+							<textarea class="form-control" id="Description" rows="3"></textarea>
+						</div>
+						<div class="mb-3">
+							<label for="Images" class="form-label">تصاویر محصول</label>
+							<input type="file" accept="image/*" id="Images" multiple>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="border border-3 p-4 rounded">
+						<div class="row g-3">
+							<div class="col-md-6">
+								<label for="Price" class="form-label">قیمت</label>
+								<input type="number" class="form-control" id="Price" placeholder="00.00" asp-for="Price">
+								<span asp-validation-for="Price"></span>
+							</div>
+							<div class="col-md-6">
+								<label for="Inventory" class="form-label">موجودی انبار</label>
+								<input type="number" class="form-control" id="Inventory" placeholder="00.00" asp-for="Inventory">
+								<span asp-validation-for="Inventory"></span>
+							</div>
+							<div class="col-md-6">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" value="" id="Displayed" asp-for="Displayed">
+									<label class="form-check-label" for="Displayed">نمایش</label>
+									<span asp-validation-for="Displayed"></span>
+								</div>
+							</div>
+							<div class="col-12">
+								<label for="Brand" class="form-label">برند محصول</label>
+								<input type="text" class="form-control" id="Brand" asp-for="Brand">
+								<span asp-validation-for="Brand"></span>
+							</div>
+							<div class="col-12">
+								<label for="CategoryId" class="form-label">دسته بندی</label>
+								<select class="form-select" id="CategoryId" asp-for="CategoryId" asp-items="ViewBag.Categories">
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div><!--end row-->
+		</div>
+	</div>
+</div>
+
+<div class="items" data-index="0">
+	<div class="card">
+		<div class="card-body">
+			<div class="row">
+
+				<!-- Repeater Content -->
+				<div class="mb-3 col-md-5">
+					<label for="DisplayName" class="form-label">نام ویژگی</label>
+					<input type="text" class="form-control" id="DisplayName" placeholder="نام ویژگی" />
+				</div>
+				<div class="mb-3 col-md-5">
+					<label for="Value" class="form-label">مقدار ویژگی</label>
+					<input type="text" class="form-control" id="Value" placeholder="مقدار ویژگی" />
+				</div>
+				<!-- Repeater Remove Btn -->
+				<div class="repeater-remove-btn mt-4  col-md-2">
+					<button class="btn btn-light remove-btn px-4" id="btnAddFeatures">
+						اضافه
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div></div>
+</div>
+
+<div class="card">
+
+	<div class="card-body">
+		<table id="tbl_Features" class="table mb-0 table-dark table-striped">
+			<thead>
+				<tr>
+					<th scope="col">نام ویژگی</th>
+					<th scope="col">مقدار ویژگی</th>
+					<th scope="col"></th>
+
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+
+	</div>
+
+</div>
+<div class="col-12 mt-5 mb-5">
+	<div class="d-grid">
+		<button type="button" id="btnAddProduct" class="btn btn-light">ذخیره محصول</button>
+	</div>
+</div>
+
+@section Scripts
+{
+
+	<link href="~/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+	<script src="~/sweetalert2/sweetalert2.all.min.js"></script>
+	<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+
+	<script>
+
+		$("#btnAddFeatures").on("click", function () {
+
+			var txtDisplayName = $("#DisplayName").val();
+			var txtValue = $("#Value").val();
+
+			if (txtDisplayName == "" || txtValue == "") {
+				swal.fire(
+					'هشدار!',
+					"نام و مقدار را باید وارد کنید",
+					'warning'
+				);
+			}
+			else {
+				$('#tbl_Features tbody').append('<tr> <td scope="row">' + txtDisplayName + '</td>  <td>' + txtValue + '</td> <td> <a class="idFeatures btnDelete btn btn-danger"> حذف </a> </td> </tr>');
+				$("#DisplayName").val('');
+				$("#Value").val('');
+			}
+		});
+
+		$("#tbl_Features").on('click', '.idFeatures', function () {
+			$(this).closest('tr').remove();
+		});
+
+
+
+		$('#btnAddProduct').on('click', function () {
+
+			var data = new FormData();
+
+			//دریافت مقادیر از تکس باکس ها و....
+			data.append("Name", $("#Name").val());
+			data.append("Brand", $("#Brand").val());
+			data.append("Price", $("#Price").val());
+			data.append("Inventory", $("#Inventory").val());
+			data.append("Displayed", $("#Displayed").attr("checked") ? true : false);
+			data.append("CategoryId", $('#CategoryId').find('option:selected').val());
+			data.append("Description", $("#Description").val());
+
+
+			//دریافت عکس های انتخاب شده توسط کاربر و قرار دادن عکس ها در متغیر data
+			var productImages = document.getElementById("Images");
+
+			for (let i = 0; i < productImages.files.length; i++) {
+				data.append("Images", productImages.files[i]);
+			}
+			debugger;
+			//دریافت ویژگی های محصول از جدول
+			var dataFeaturesViewModel = $('#tbl_Features tr:gt(0)').map(function () {
+				return {
+					DisplayName: $(this.cells[0]).text(),
+					Value: $(this.cells[1]).text(),
+				};
+			}).get();
+
+			$.each(dataFeaturesViewModel, function (i, val) {
+				data.append('[' + i + '].DisplayName', val.DisplayName);
+				data.append('[' + i + '].Value', val.Value);
+
+			});
+
+
+
+
+
+			// ارسال اطلاعات بع کنترلر
+			var ajaxRequest = $.ajax({
+				type: "POST",
+				url: "AddNewProduct",
+				contentType: false,
+				processData: false,
+				data: data,
+				success: function (data) {
+
+					if (data.isSuccess == true) {
+
+						swal.fire(
+							'موفق!',
+							data.message,
+							'success'
+						).then(function (isConfirm) {
+							window.location.href = "/Admin/Products/";
+
+						});
+					}
+					else {
+
+						swal.fire(
+							'هشدار!',
+							data.message,
+							'warning'
+						);
+					}
+
+				},
+				error: function (xhr, ajaxOptions, thrownError) {
+					alert(xhr.status);
+					alert(thrownError);
+				}
+
+			});
+
+			ajaxRequest.done(function (xhr, textStatus) {
+				// Do other operation
+			});
+		});
+	</script>
+}
