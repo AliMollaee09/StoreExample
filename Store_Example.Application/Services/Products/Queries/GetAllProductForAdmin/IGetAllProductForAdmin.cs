@@ -13,7 +13,7 @@ namespace Store_Example.Application.Services.Products.Queries.GetAllProductForAd
 {
 	public interface IGetAllProductForAdmin
 	{
-		public Task<ResultDto<ResultGetAllProductForAdminDto>> Execute();
+		public Task<ResultDto<ResultGetAllProductForAdminDto>> Execute(int pageSize, int currentPage);
 	}
 
 	public class GetAllProductForAdmin : IGetAllProductForAdmin
@@ -30,7 +30,7 @@ namespace Store_Example.Application.Services.Products.Queries.GetAllProductForAd
 			try
 			{
 				int rowCount;
-				var ProductForAdmins = await _context.Products
+				var ProductForAdmins =  _context.Products
 														 .Include(x => x.Category)
 														 .Select(p => new ProductForAdminDto()
 														 {
@@ -42,7 +42,7 @@ namespace Store_Example.Application.Services.Products.Queries.GetAllProductForAd
 															 Inventory = p.Inventory,
 															 Price = p.Price
 														 })
-														 .ToPagedAsync(currentPage, pageSize, out rowCount);
+														 .ToPaged(currentPage, pageSize, out rowCount);
 				return new ResultDto<ResultGetAllProductForAdminDto>()
 				{
 					Data = new ResultGetAllProductForAdminDto()
