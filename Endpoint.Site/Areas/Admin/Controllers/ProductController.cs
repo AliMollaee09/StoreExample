@@ -5,15 +5,17 @@ using Store_Example.Application.Interfaces.Contexts;
 using Store_Example.Application.Interfaces.Facad;
 using Store_Example.Application.Services.Products.Commands.AddNewProduct;
 using Store_Example.Application.Services.Products.Facad;
+using System.Threading.Tasks;
 
 namespace Endpoint.Site.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class ProductController(IProductFacad productFacad) : Controller
     {
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int currentPage=1 , int pageSize = 20)
         {
-            return View();
+            var products= (await productFacad.GetAllProductForAdmin.Execute(pageSize, currentPage)).Data ;
+            return View(products);
         }
 
         [HttpGet]

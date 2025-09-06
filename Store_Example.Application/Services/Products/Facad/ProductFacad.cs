@@ -9,28 +9,30 @@ using Store_Example.Application.Interfaces.Facad;
 using Store_Example.Application.Services.Products.Commands.AddNewCategory;
 using Store_Example.Application.Services.Products.Commands.AddNewProduct;
 using Store_Example.Application.Services.Products.Queries.GetAllCategory;
+using Store_Example.Application.Services.Products.Queries.GetAllProductForAdmin;
 using Store_Example.Application.Services.Products.Queries.GetCategory;
 
 namespace Store_Example.Application.Services.Products.Facad
 {
-    public class ProductFacad(IDatabaseContext context):IProductFacad
+    public class ProductFacad(IDatabaseContext context) : IProductFacad
     {
-        private IAddNewCategory _addNewCategory ;
-        public IAddNewCategory AddNewCategory {
-			get
-			{
+        private IAddNewCategory _addNewCategory;
+        public IAddNewCategory AddNewCategory
+        {
+            get
+            {
                 return _addNewCategory = _addNewCategory ?? new AddNewCategoryService(context);
-			}
+            }
         }
 
         private IGetCategory _getCategory { get; set; }
 
         public IGetCategory GetCategory
         {
-	        get
-	        {
-                return _getCategory= _getCategory ?? new GetCategoryService(context);
-	        }
+            get
+            {
+                return _getCategory = _getCategory ?? new GetCategoryService(context);
+            }
         }
 
         private IGetAllCategory _getAllCategory { get; set; }
@@ -43,14 +45,25 @@ namespace Store_Example.Application.Services.Products.Facad
             }
         }
 
-		private IAddNewProduct _addNewProduct { get; set; }
+        private IAddNewProduct _addNewProduct { get; set; }
 
-		public IAddNewProduct AddNewProduct
-		{
-			get
-			{
-				return _addNewProduct = _addNewProduct ?? new AddNewProductService(context);
-			}
-		}
-	}
+        public IAddNewProduct AddNewProduct
+        {
+            get
+            {
+                return _addNewProduct = _addNewProduct ?? new AddNewProductService(context);
+            }
+        }
+
+        private IGetAllProductForAdmin _getAllProductForAdmin;
+
+        public IGetAllProductForAdmin GetAllProductForAdmin
+        {
+            get
+            {
+                return _getAllProductForAdmin = _getAllProductForAdmin ?? new GetAllProductForAdmin(context);
+            }
+        }
+
+    }
 }

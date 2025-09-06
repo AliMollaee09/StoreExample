@@ -34,6 +34,7 @@ namespace Store_Example.Application.Services.Products.Queries.GetAllProductForAd
 														 .Include(x => x.Category)
 														 .Select(p => new ProductForAdminDto()
 														 {
+															 Id=p.Id,
 															 Brand = p.Brand,
 															 Category = p.Category.Name,
 															 Description = p.Description,
@@ -83,9 +84,8 @@ namespace Store_Example.Application.Services.Products.Queries.GetAllProductForAd
 	public class ProductForAdminDto
 	{
 
-
-		public string Name { get; set; }
-
+        public long Id { get; set; }
+        public string Name { get; set; }
 		public string Brand { get; set; }
 		public string Description { get; set; }
 		public int Price { get; set; }

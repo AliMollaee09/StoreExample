@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Store_Example.Application.Services.Products.Commands.AddNewProduct;
 using Store_Example.Application.Services.Products.Queries.GetAllCategory;
+using Store_Example.Application.Services.Products.Queries.GetAllProductForAdmin;
 
 namespace Store_Example.Application.Interfaces.Facad
 {
@@ -16,6 +17,11 @@ namespace Store_Example.Application.Interfaces.Facad
         public IGetCategory GetCategory { get; }
         public IGetAllCategory GetAllCategory { get; }
         public IAddNewProduct AddNewProduct { get; }
+
+        /// <summary>
+        /// دریافت لیست محصولات برای پنل ادمین
+        /// </summary>
+        public IGetAllProductForAdmin GetAllProductForAdmin { get; }
 
     }
 }
