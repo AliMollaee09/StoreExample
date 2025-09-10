@@ -5,54 +5,54 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-div class="card">
-<div class="card-body">
-    <div class="card-title">
-        <h5 class="mb-0">
-            کاربران
-        </h5>
-    </div>
-    <hr>
-    <div class="table-responsive">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">
-                        نام محصول
-                    </th>
-                    <th scope="col">
-                        برند
-                    </th>
-                    <th scope="col">
-                        توضیحات
-                    </th>
-                    <th scope="col">
-                        دسته بندی
-                    </th>
-                    <th scope="col">
-                        موجودی
-                    </th>
-                    <th scope="col">
-                        قیمت
-                    </th>
-                    <th scope="col">
-                        عملیات
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.ProductForAdminDtos)
-                {
-
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">
+            <h5 class="mb-0">
+                لیست محصولات
+            </h5>
+        </div>
+        <hr>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>@item.Name</td>
-                        <td>@item.Brand</td>
-                        <td>@item.Description</td>
-                        <td>@item.Category</td>
-                        <td>@item.Inventory</td>
-                        <td>@item.Price</td>
-                        <td>
-                            @* <input type="button" value="حذف" class="btn btn-danger m-2" onclick="DeleteUser('@item.Id')" />
+                        <th scope="col">
+                            نام محصول
+                        </th>
+                        <th scope="col">
+                            برند
+                        </th>
+                        <th scope="col">
+                            توضیحات
+                        </th>
+                        <th scope="col">
+                            دسته بندی
+                        </th>
+                        <th scope="col">
+                            موجودی
+                        </th>
+                        <th scope="col">
+                            قیمت
+                        </th>
+                        <th scope="col">
+                            عملیات
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ProductForAdminDtos)
+                    {
+
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.Brand</td>
+                            <td>@item.Description</td>
+                            <td>@item.Category</td>
+                            <td>@item.Inventory</td>
+                            <td>@item.Price</td>
+                            <td>
+                                @* <input type="button" value="حذف" class="btn btn-danger m-2" onclick="DeleteUser('@item.Id')" />
 							<input type="button" value="ویرایش" class="btn btn-warning m-2" onclick="ShowModalEdituser('@item.Id','@item.FullName')" />
  *@							@* @if (item.IsActive)
         {
@@ -66,15 +66,15 @@ div class="card">
 
 
 
-                            <!--end row-->
-                        </td>
-                    </tr>
+                                <!--end row-->
+                            </td>
+                        </tr>
 
-                }
+                    }
+        </div>
+        </tbody>
+        </table>
     </div>
-    </tbody>
-    </table>
-</div>
 </div>
 </div>
 

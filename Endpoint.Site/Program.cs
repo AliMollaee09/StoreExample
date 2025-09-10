@@ -11,8 +11,14 @@ using Store_Example.Application.Services.Users.Commands.UserStatusChange;
 using Store_Example.Application.Services.Users.Queries.GetRoles;
 using Store_Example.Application.Services.Users.Queries.GetUsers;
 using Store_Example.Persistance.Contexts;
+using Store_Example.Application.MappingProfiles;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAutoMapper(config =>
+{
+    config.AddMaps(typeof(ProductProfile).Assembly);
+});
 
 builder.Services.AddScoped<IDatabaseContext, DatabaseContext>();
 builder.Services.AddScoped<IGetUsersService, GetUsersService>();

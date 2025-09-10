@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Store_Example.Application.Interfaces.Contexts;
 using Store_Example.Application.Interfaces.Facad;
@@ -11,10 +7,15 @@ using Store_Example.Application.Services.Products.Commands.AddNewProduct;
 using Store_Example.Application.Services.Products.Queries.GetAllCategory;
 using Store_Example.Application.Services.Products.Queries.GetAllProductForAdmin;
 using Store_Example.Application.Services.Products.Queries.GetCategory;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Store_Example.Application.Services.Products.Facad
 {
-    public class ProductFacad(IDatabaseContext context) : IProductFacad
+    public class ProductFacad(IDatabaseContext context, IConfigurationProvider mapperConfig) : IProductFacad
     {
         private IAddNewCategory _addNewCategory;
         public IAddNewCategory AddNewCategory
@@ -61,7 +62,7 @@ namespace Store_Example.Application.Services.Products.Facad
         {
             get
             {
-                return _getAllProductForAdmin = _getAllProductForAdmin ?? new GetAllProductForAdmin(context);
+                return _getAllProductForAdmin = _getAllProductForAdmin ?? new GetAllProductForAdmin(context, mapperConfig);
             }
         }
 
