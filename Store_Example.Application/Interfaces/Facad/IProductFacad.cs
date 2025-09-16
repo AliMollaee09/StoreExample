@@ -1,13 +1,14 @@
 ﻿using Store_Example.Application.Services.Products.Commands.AddNewCategory;
+using Store_Example.Application.Services.Products.Commands.AddNewProduct;
+using Store_Example.Application.Services.Products.Commands.DeleteProduct;
+using Store_Example.Application.Services.Products.Queries.GetAllCategory;
+using Store_Example.Application.Services.Products.Queries.GetAllProductForAdmin;
 using Store_Example.Application.Services.Products.Queries.GetCategory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Store_Example.Application.Services.Products.Commands.AddNewProduct;
-using Store_Example.Application.Services.Products.Queries.GetAllCategory;
-using Store_Example.Application.Services.Products.Queries.GetAllProductForAdmin;
 
 namespace Store_Example.Application.Interfaces.Facad
 {
@@ -22,6 +23,11 @@ namespace Store_Example.Application.Interfaces.Facad
         /// دریافت لیست محصولات برای پنل ادمین
         /// </summary>
         public IGetAllProductForAdmin GetAllProductForAdmin { get; }
+
+        /// <summary>
+        /// حذف محصول
+        /// </summary>
+        public IDeleteProduct DeleteProduct { get; }
 
     }
 }

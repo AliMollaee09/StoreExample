@@ -4,6 +4,7 @@ using Store_Example.Application.Interfaces.Contexts;
 using Store_Example.Application.Interfaces.Facad;
 using Store_Example.Application.Services.Products.Commands.AddNewCategory;
 using Store_Example.Application.Services.Products.Commands.AddNewProduct;
+using Store_Example.Application.Services.Products.Commands.DeleteProduct;
 using Store_Example.Application.Services.Products.Queries.GetAllCategory;
 using Store_Example.Application.Services.Products.Queries.GetAllProductForAdmin;
 using Store_Example.Application.Services.Products.Queries.GetCategory;
@@ -22,7 +23,7 @@ namespace Store_Example.Application.Services.Products.Facad
         {
             get
             {
-                return _addNewCategory = _addNewCategory ?? new AddNewCategoryService(context);
+                return _addNewCategory ??= new AddNewCategoryService(context);
             }
         }
 
@@ -32,7 +33,7 @@ namespace Store_Example.Application.Services.Products.Facad
         {
             get
             {
-                return _getCategory = _getCategory ?? new GetCategoryService(context);
+                return _getCategory ??= new GetCategoryService(context);
             }
         }
 
@@ -42,7 +43,7 @@ namespace Store_Example.Application.Services.Products.Facad
         {
             get
             {
-                return _getAllCategory = _getAllCategory ?? new GetAllCategoryService(context);
+                return _getAllCategory ??= new GetAllCategoryService(context);
             }
         }
 
@@ -52,7 +53,7 @@ namespace Store_Example.Application.Services.Products.Facad
         {
             get
             {
-                return _addNewProduct = _addNewProduct ?? new AddNewProductService(context);
+                return _addNewProduct ??= new AddNewProductService(context);
             }
         }
 
@@ -62,9 +63,20 @@ namespace Store_Example.Application.Services.Products.Facad
         {
             get
             {
-                return _getAllProductForAdmin = _getAllProductForAdmin ?? new GetAllProductForAdmin(context, mapperConfig);
+                return _getAllProductForAdmin ??= new GetAllProductForAdmin(context, mapperConfig);
             }
         }
+
+        private IDeleteProduct _deleteProduct;
+
+        public IDeleteProduct DeleteProduct
+        {
+            get
+            {
+                return _deleteProduct ??= new DeleteProductService(context);
+            }
+        }
+
 
     }
 }

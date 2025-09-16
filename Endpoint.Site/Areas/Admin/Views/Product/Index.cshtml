@@ -1,5 +1,7 @@
 ﻿@using Store_Example.Application.Services.Products.Queries.GetAllProductForAdmin
 @model ResultGetAllProductForAdminDto
+@using LazZiya.TagHelpers
+@addTagHelper *, LazZiya.TagHelpers
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
@@ -52,17 +54,9 @@
                             <td>@item.Inventory</td>
                             <td>@item.Price</td>
                             <td>
-                                @* <input type="button" value="حذف" class="btn btn-danger m-2" onclick="DeleteUser('@item.Id')" />
-							<input type="button" value="ویرایش" class="btn btn-warning m-2" onclick="ShowModalEdituser('@item.Id','@item.FullName')" />
- *@							@* @if (item.IsActive)
-        {
-								<input type="button" value="غیرفعال کردن" class="btn btn-danger m-2" onclick="UserSatusChange('@item.Id')" />
-        }
-							else
-							{
-								<input type="button" value=" فعال کردن " class="btn btn-info m-2" onclick="UserSatusChange('@item.Id')" />
+                                <input type="button" value="حذف" class="btn btn-danger m-2" onclick="DeleteProduct('@item.Id')" />
+                                <input type="button" value="اطلاعات بیشتر" class="btn btn-warning m-2"  />
 
-							} *@
 
 
 
@@ -71,18 +65,80 @@
                         </tr>
 
                     }
+                </tbody>
+            </table>
         </div>
-        </tbody>
-        </table>
     </div>
 </div>
+
+<div class="  text-center">
+    <paging page-no="Model.CurrentPage"
+            page-size="Model.PageSize"
+            total-records="Model.RowCount">
+    </paging>
+
 </div>
-
-
 @section Scripts
 {
     <link href="~/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
     <script src="~/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+
+        function DeleteProduct(UserId) {
+            swal.fire({
+                title: 'حذف محصول',
+                text: "کاربر گرامی از حذف محصول مطمئن هستید؟",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#7cacbe',
+                confirmButtonText: 'بله ، کاربر حذف شود',
+                cancelButtonText: 'خیر'
+            }).then((result) => {
+                if (result.value) {
+                    var postData = {
+                        'id': UserId,
+                    };
+
+                    $.ajax({
+                        contentType: 'application/x-www-form-urlencoded',
+                        dataType: 'json',
+                        type: "POST",
+                        url: "Delete",
+                        data: postData,
+                        success: function (data) {
+                            if (data.isSuccess == true) {
+                                swal.fire(
+                                    'موفق!',
+                                    data.message,
+                                    'success'
+                                ).then(function (isConfirm) {
+                                    location.reload();
+                                });
+                            }
+                            else {
+
+                                swal.fire(
+                                    'هشدار!',
+                                    data.message,
+                                    'warning'
+                                );
+
+                            }
+                        },
+                        error: function (request, status, error) {
+                            alert(request.responseText);
+                        }
+
+                    });
+
+                }
+            })
+        }
+
+    </script>
+
 }

@@ -12,9 +12,9 @@ namespace Endpoint.Site.Areas.Admin.Controllers
     [Area("Admin")]
     public class ProductController(IProductFacad productFacad) : Controller
     {
-        public async Task<IActionResult> Index(int currentPage=1 , int pageSize = 20)
+        public async Task<IActionResult> Index(int currentPage = 1, int pageSize = 20)
         {
-            var products= (await productFacad.GetAllProductForAdmin.Execute(pageSize, currentPage)).Data ;
+            var products = (await productFacad.GetAllProductForAdmin.Execute(pageSize, currentPage)).Data;
             return View(products);
         }
 
@@ -28,8 +28,14 @@ namespace Endpoint.Site.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddNewProduct(RequestAddNewProductDto request, List<AddNewProduct_FeaturesDto> features)
         {
-	        request.Features = features;
-	       var res= await productFacad.AddNewProduct.Execute(request);
+            request.Features = features;
+            var res = await productFacad.AddNewProduct.Execute(request);
+            return Json(res);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Delete(long id)
+        {
+            var res = await productFacad.DeleteProduct.Excute(id);
             return Json(res);
         }
     }
