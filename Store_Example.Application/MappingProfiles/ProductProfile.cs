@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Store_Example.Application.Services.Products.Queries.GetAllProductForAdmin;
+using Store_Example.Application.Services.Products.Queries.GetDetailProductForAdmin;
+using Store_Example.Domain.Entities.Commons.ExtentionMethods;
 using Store_Example.Domain.Entities.Products;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,14 @@ namespace Store_Example.Application.MappingProfiles
             // Fixing the syntax error by providing the correct lambda expression and method call
             CreateMap<Product, ProductForAdminDto>()
                 .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category.Name));
+
+            CreateMap<Product, GetDetailProductForAdminDto>()
+                .ForMember(des => des.Category, opt => opt.MapFrom(src => src.Category.GetFullName()));
+
+            CreateMap<ProductFeature, DetailProductFeatureDto>();
+            CreateMap<ProductFile, DetailProductFileDto>();
         }
+
+
     }
 }

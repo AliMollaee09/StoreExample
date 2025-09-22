@@ -4,6 +4,7 @@ using Store_Example.Application.Services.Products.Commands.DeleteProduct;
 using Store_Example.Application.Services.Products.Queries.GetAllCategory;
 using Store_Example.Application.Services.Products.Queries.GetAllProductForAdmin;
 using Store_Example.Application.Services.Products.Queries.GetCategory;
+using Store_Example.Application.Services.Products.Queries.GetDetailProductForAdmin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,11 @@ namespace Store_Example.Application.Interfaces.Facad
         /// حذف محصول
         /// </summary>
         public IDeleteProduct DeleteProduct { get; }
+
+        /// <summary>
+        /// دریافت جزئیات لیست محصولات برای پنل ادمین
+        /// </summary>
+        public IGetDetailProductForAdmin GetDetailProductForAdmin { get; }
 
     }
 }

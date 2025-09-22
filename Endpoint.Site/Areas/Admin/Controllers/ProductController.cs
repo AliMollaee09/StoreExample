@@ -38,5 +38,11 @@ namespace Endpoint.Site.Areas.Admin.Controllers
             var res = await productFacad.DeleteProduct.Excute(id);
             return Json(res);
         }
+
+        public async Task<IActionResult> DetailProduct(long id)
+        {
+            var res = await productFacad.GetDetailProductForAdmin.Execute(id);
+            return Json(res);
+        }
     }
 }

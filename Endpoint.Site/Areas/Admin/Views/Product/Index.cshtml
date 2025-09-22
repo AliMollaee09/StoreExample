@@ -26,9 +26,6 @@
                             برند
                         </th>
                         <th scope="col">
-                            توضیحات
-                        </th>
-                        <th scope="col">
                             دسته بندی
                         </th>
                         <th scope="col">
@@ -49,13 +46,12 @@
                         <tr>
                             <td>@item.Name</td>
                             <td>@item.Brand</td>
-                            <td>@item.Description</td>
                             <td>@item.Category</td>
                             <td>@item.Inventory</td>
                             <td>@item.Price</td>
                             <td>
                                 <input type="button" value="حذف" class="btn btn-danger m-2" onclick="DeleteProduct('@item.Id')" />
-                                <input type="button" value="اطلاعات بیشتر" class="btn btn-warning m-2"  />
+                                <a type="button" value="اطلاعات بیشتر" class="btn btn-warning m-2" href="~/Admin/Product/Detail/@item.Id" />
 
 
 
@@ -138,6 +134,9 @@
                 }
             })
         }
+
+
+               
 
     </script>
 

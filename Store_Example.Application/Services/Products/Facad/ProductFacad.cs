@@ -8,6 +8,7 @@ using Store_Example.Application.Services.Products.Commands.DeleteProduct;
 using Store_Example.Application.Services.Products.Queries.GetAllCategory;
 using Store_Example.Application.Services.Products.Queries.GetAllProductForAdmin;
 using Store_Example.Application.Services.Products.Queries.GetCategory;
+using Store_Example.Application.Services.Products.Queries.GetDetailProductForAdmin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Store_Example.Application.Services.Products.Facad
 {
-    public class ProductFacad(IDatabaseContext context, IConfigurationProvider mapperConfig) : IProductFacad
+    public class ProductFacad(IDatabaseContext context, IConfigurationProvider mapperConfig,IMapper mapper) : IProductFacad
     {
         private IAddNewCategory _addNewCategory;
         public IAddNewCategory AddNewCategory
@@ -77,6 +78,14 @@ namespace Store_Example.Application.Services.Products.Facad
             }
         }
 
+        private IGetDetailProductForAdmin _getDetailProductForAdmin;
 
+        public IGetDetailProductForAdmin GetDetailProductForAdmin
+        {
+            get
+            {
+                return _getDetailProductForAdmin ??= new GetDetailProductForAdminService(context, mapper);
+            }
+        }
     }
 }
