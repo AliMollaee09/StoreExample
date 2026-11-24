@@ -1,7 +1,6 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Endpoint.Site.Areas.Admin.ViewModels.Product
+namespace Endpoint.Site.Areas.Admin.Models.ViewModels.Product
 {
 	public class RequestAddNewProductVM
 	{
@@ -21,7 +20,7 @@ namespace Endpoint.Site.Areas.Admin.ViewModels.Product
 		public long CategoryId { get; set; }
 		public bool Displayed { get; set; }
 
-		public List<AddNewProduct_ImageDto> Images { get; set; }
+		public List<AddNewProduct_ImageVM> Images { get; set; }
 		public List<AddNewProduct_FeaturesVM> Features { get; set; }
 	}
 }

@@ -1,4 +1,4 @@
-﻿namespace Endpoint.Site.Areas.Admin.ViewModels.Roles
+﻿namespace Endpoint.Site.Areas.Admin.Models.ViewModels.Roles
 {
 	public class RolesInRegisterUserVM
 	{

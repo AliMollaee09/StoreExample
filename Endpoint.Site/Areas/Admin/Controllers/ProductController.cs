@@ -1,17 +1,20 @@
-﻿using Endpoint.Site.Areas.Admin.ViewModels.Product;
+﻿using Endpoint.Site.Areas.Admin.Models.ViewModels.Product;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Store_Example.Application.Interfaces.Contexts;
 using Store_Example.Application.Interfaces.Facad;
 using Store_Example.Application.Services.Products.Commands.AddNewProduct;
 using Store_Example.Application.Services.Products.Facad;
+using Store_Example.Application.Services.Products.Queries.GetDetailProductForAdmin;
 using System.Threading.Tasks;
 
 namespace Endpoint.Site.Areas.Admin.Controllers
+
 {
     [Area("Admin")]
     public class ProductController(IProductFacad productFacad) : Controller
     {
+        GetDetailProductForAdminDto getDetailProductForAdminDto;
         public async Task<IActionResult> Index(int currentPage = 1, int pageSize = 20)
         {
             var products = (await productFacad.GetAllProductForAdmin.Execute(pageSize, currentPage)).Data;
@@ -41,8 +44,14 @@ namespace Endpoint.Site.Areas.Admin.Controllers
 
         public async Task<IActionResult> DetailProduct(long id)
         {
-            var res = await productFacad.GetDetailProductForAdmin.Execute(id);
-            return Json(res);
+            getDetailProductForAdminDto = await productFacad.GetDetailProductForAdmin.Execute(id);
+            return View(getDetailProductForAdminDto);
+        }
+
+        public async Task<IActionResult> GetImageForDetailProduct(long id)
+        {
+            var res = await productFacad.GetImageById.Execute( id);
+            return File(res.Data.Bytes, "image/jpeg");
         }
     }
 }

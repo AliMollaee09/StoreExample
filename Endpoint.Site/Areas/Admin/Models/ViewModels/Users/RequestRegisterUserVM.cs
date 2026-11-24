@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Endpoint.Site.Areas.Admin.ViewModels.Roles;
+using Endpoint.Site.Areas.Admin.Models.ViewModels.Roles;
 using Store_Example.Application.Services.Users.Commands.RegisterUser;
 
-namespace Endpoint.Site.Areas.Admin.ViewModels.Users
+namespace Endpoint.Site.Areas.Admin.Models.ViewModels.Users
 {
 	public class RequestRegisterUserVM
 	{

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Store_Example.Application.Interfaces.Contexts;
 using Store_Example.Common.Dtos;
 using System;
@@ -11,35 +12,26 @@ namespace Store_Example.Application.Services.Products.Queries.GetDetailProductFo
 {
     public interface IGetDetailProductForAdmin
     {
-        public Task<ResultDto<GetDetailProductForAdminDto>> Execute(long Id);
+        public Task<GetDetailProductForAdminDto> Execute(long Id);
     }
 
     public class GetDetailProductForAdminService(IDatabaseContext context, IMapper mapper) : IGetDetailProductForAdmin
     {
-        public async Task<ResultDto<GetDetailProductForAdminDto>> Execute(long Id)
+        public async Task<GetDetailProductForAdminDto> Execute(long id)
         {
             try
             {
-               var product=await context.Products.FindAsync(Id);
+               var product=await context.Products.Include(x=>x.ProductFeatures)
+                                                 .Include(x=>x.ImageFiles).FirstOrDefaultAsync(x=>x.Id==id);
                 // Fix: Use the CreateMapper method to create an IMapper instance, then use the Map method to map the product to GetDetailProductForAdminDto.
                
                 var getDetailProductForAdminDto = mapper.Map<GetDetailProductForAdminDto>(product);
-                return new ResultDto<GetDetailProductForAdminDto>
-                {
-                    IsSuccess = true,
-                    Message = "محصول یافت شد",
-                    Data = getDetailProductForAdminDto
-                };
+                return getDetailProductForAdminDto;
             }
             catch (Exception ex)
             {
 
-                return new ResultDto<GetDetailProductForAdminDto>
-                {
-                    IsSuccess = false,
-                    Message = "محصول یافت نشد",
-                    Data = new GetDetailProductForAdminDto()
-                };
+                return  new GetDetailProductForAdminDto();
             }
         }
     }
@@ -55,18 +47,20 @@ namespace Store_Example.Application.Services.Products.Queries.GetDetailProductFo
 		public string Category { get; set; }
         public bool Displayed { get; set; }
 
-        public ICollection<DetailProductFeatureDto> detailProductFeatureDtos { get; set; }
-        public ICollection<DetailProductFileDto> detailProductFiles{ get; set; }
+        public ICollection<DetailProductFeatureDto> DetailProductFeatureDtos { get; set; }
+        public ICollection<DetailProductFileDto> DetailProductFiles{ get; set; }
     }
 
     public class DetailProductFeatureDto
     {
+        public long Id { get; set; }
         public string DisplayName { get; set; }
         public string Value { get; set; }
     }
 
     public class DetailProductFileDto
     {
+        public long Id { get; set; }
         public byte[] Bytes { get; set; }
 
     }

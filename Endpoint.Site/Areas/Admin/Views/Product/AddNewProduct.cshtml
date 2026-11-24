@@ -1,5 +1,6 @@
-﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model Endpoint.Site.Areas.Admin.ViewModels.Product.RequestAddNewProductVM
+﻿@using Endpoint.Site.Areas.Admin.Models.ViewModels.Product
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model RequestAddNewProductVM
 @{
 	ViewData["Title"] = "AddNewProduct";
 	Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";

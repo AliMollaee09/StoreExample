@@ -7,8 +7,12 @@ using Store_Example.Application.Services.Products.Commands.AddNewProduct;
 using Store_Example.Application.Services.Products.Commands.DeleteProduct;
 using Store_Example.Application.Services.Products.Queries.GetAllCategory;
 using Store_Example.Application.Services.Products.Queries.GetAllProductForAdmin;
+using Store_Example.Application.Services.Products.Queries.GetAllProductForSite;
 using Store_Example.Application.Services.Products.Queries.GetCategory;
 using Store_Example.Application.Services.Products.Queries.GetDetailProductForAdmin;
+using Store_Example.Application.Services.Products.Queries.GetDetailProductForSite;
+using Store_Example.Application.Services.Products.Queries.GetImageById;
+using Store_Example.Application.Services.Products.Queries.GetMenuItem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +21,7 @@ using System.Threading.Tasks;
 
 namespace Store_Example.Application.Services.Products.Facad
 {
-    public class ProductFacad(IDatabaseContext context, IConfigurationProvider mapperConfig,IMapper mapper) : IProductFacad
+    public class ProductFacad(IDatabaseContext context, IConfigurationProvider mapperConfig, IMapper mapper) : IProductFacad
     {
         private IAddNewCategory _addNewCategory;
         public IAddNewCategory AddNewCategory
@@ -86,6 +90,47 @@ namespace Store_Example.Application.Services.Products.Facad
             {
                 return _getDetailProductForAdmin ??= new GetDetailProductForAdminService(context, mapper);
             }
+        }
+
+        private IGetAllProductForSite _getAllProductForSite;
+
+        public IGetAllProductForSite GetAllProductForSite
+        {
+            get
+            {
+                return _getAllProductForSite ??= new GetAllProductForSiteService(context, mapper);
+            }
+        }
+
+        private IGetDetailProductForSite _gtDetailProductForSite;
+
+        public IGetDetailProductForSite GetDetailProductForSite
+        {
+            get
+            {
+                return _gtDetailProductForSite ??= new GetDetailProductForSiteService(context, mapper);
+            }
+        }
+
+        private IGetImageById _getImageById;
+
+        public IGetImageById GetImageById
+        {
+            get
+            {
+                return _getImageById ??= new GetImageByIdService(context, mapper);
+            }
+        }
+
+        private IGetAllMenuItem _getAllMenuItem;
+        public IGetAllMenuItem GetAllMenuItem
+        {
+
+            get
+            {
+                return _getAllMenuItem ??= new GetAllMenuItemService(context, mapper);
+            }
+
         }
     }
 }

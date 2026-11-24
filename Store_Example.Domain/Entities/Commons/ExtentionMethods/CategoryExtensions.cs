@@ -15,7 +15,7 @@ namespace Store_Example.Domain.Entities.Commons.ExtentionMethods
                 return null;
 
             if (category.ParentCategoryId != null && category.ParentCategory != null)
-                return category.ParentCategory.Name + " " + category.Name;
+                return category.ParentCategory.Name + " - " + category.Name;
 
             return category.Name;
         }

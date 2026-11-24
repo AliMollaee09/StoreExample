@@ -1,0 +1,149 @@
+﻿@using Store_Example.Application.Services.Products.Queries.GetDetailProductForAdmin
+@model GetDetailProductForAdminDto
+@{
+    ViewData["Title"] = "DetailProduct";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card">
+    <div class="row g-0">
+        <div class="col-md-4 border-end">
+            <img src="assets/images/products/13.png" class="img-fluid" alt="...">
+            <div class="row mb-3 row-cols-auto g-2 justify-content-center mt-3">
+                @foreach (var item in Model.DetailProductFiles)
+                {
+
+                    <div class="col"><img src="@Url.Action("GetImageForDetailProduct", "Product", new { id = item.Id })" width="70" class="border rounded cursor-pointer" alt=""></div>
+                    
+                }
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h4 class="card-title">@Model.Name</h4>
+                <div class="d-flex gap-3 py-3">
+                    <div class="cursor-pointer">
+                        <i class="bx bxs-star text-warning"></i>
+                        <i class="bx bxs-star text-warning"></i>
+                        <i class="bx bxs-star text-warning"></i>
+                        <i class="bx bxs-star text-warning"></i>
+                        <i class="bx bxs-star"></i>
+                    </div>
+                    <div>142 بازخورد</div>
+                    <div class="text-white"><i class="bx bxs-cart-alt align-middle"></i> 134 سفارشات</div>
+                </div>
+                <div class="mb-3">
+                    <span class="price h4">@Model.Price<toman> تومان </toman></span>
+                    @* <span class="">/در هر کیلوگرم</span> *@
+                </div>
+                <p class="card-text fs-6"> @Model.Description</p>
+                <dl class="row">
+                    <dt class="col-sm-3">Model#</dt>
+                    <dd class="col-sm-9">Odsy-1000</dd>
+
+                    <dt class="col-sm-3">رنگ</dt>
+                    <dd class="col-sm-9">قهوه ای</dd>
+
+                    <dt class="col-sm-3">تحویل</dt>
+                    <dd class="col-sm-9">روسیه، آمریکا و اروپا </dd>
+                </dl>
+                <hr>
+                <div class="row row-cols-auto row-cols-1 row-cols-md-3 align-items-center">
+                    <div class="col">
+                        <label class="form-label">مقدار</label>
+                        <div class="input-group input-spinner">
+                            <button class="btn btn-light" type="button" id="button-plus"> + </button>
+                            <input type="text" class="form-control" value="1">
+                            <button class="btn btn-light" type="button" id="button-minus"> − </button>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">اندازه را انتخاب کنید</label>
+                        <div class="">
+                            <label class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" name="select_size" checked="">
+                                <div class="form-check-label">کوچک</div>
+                            </label>
+                            <label class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" name="select_size" checked="">
+                                <div class="form-check-label">متوسط</div>
+                            </label>
+
+                            <label class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" name="select_size" checked="">
+                                <div class="form-check-label">بزرگ</div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">رنگ را انتخاب کنید</label>
+                        <div class="color-indigators d-flex align-items-center gap-2">
+                            <div class="color-indigator-item bg-primary"></div>
+                            <div class="color-indigator-item bg-danger"></div>
+                            <div class="color-indigator-item bg-success"></div>
+                            <div class="color-indigator-item bg-warning"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex gap-3 mt-3">
+                    <a href="ecommerce-products-details.html#" class="btn btn-white">اکنون بخرید</a>
+                    <a href="ecommerce-products-details.html#" class="btn btn-light"><span class="text">به سبد خرید اضافه کنید</span> <i class="bx bxs-cart-alt"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="card-body">
+        <ul class="nav nav-tabs mb-0" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" data-bs-toggle="tab" href="ecommerce-products-details.html#primaryhome" role="tab" aria-selected="true">
+                    <div class="d-flex align-items-center">
+                        <div class="tab-icon">
+                            <i class="bx bx-comment-detail font-18 me-1"></i>
+                        </div>
+                        <div class="tab-title"> توضیحات محصول </div>
+                    </div>
+                </a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" data-bs-toggle="tab" href="ecommerce-products-details.html#primaryprofile" role="tab" aria-selected="false" tabindex="-1">
+                    <div class="d-flex align-items-center">
+                        <div class="tab-icon">
+                            <i class="bx bx-bookmark-alt font-18 me-1"></i>
+                        </div>
+                        <div class="tab-title">برچسب ها</div>
+                    </div>
+                </a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" data-bs-toggle="tab" href="ecommerce-products-details.html#primarycontact" role="tab" aria-selected="false" tabindex="-1">
+                    <div class="d-flex align-items-center">
+                        <div class="tab-icon">
+                            <i class="bx bx-star font-18 me-1"></i>
+                        </div>
+                        <div class="tab-title">بازخورد</div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content pt-3">
+            <div class="tab-pane fade show active" id="primaryhome" role="tabpanel">
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد..</p>
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد..</p>
+            </div>
+            <div class="tab-pane fade" id="primaryprofile" role="tabpanel">
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد..</p>
+            </div>
+            <div class="tab-pane fade" id="primarycontact" role="tabpanel">
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد..</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section  Scripts {
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

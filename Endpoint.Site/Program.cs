@@ -12,12 +12,14 @@ using Store_Example.Application.Services.Users.Queries.GetRoles;
 using Store_Example.Application.Services.Users.Queries.GetUsers;
 using Store_Example.Persistance.Contexts;
 using Store_Example.Application.MappingProfiles;
+using Endpoint.Site.MappingProfiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAutoMapper(config =>
 {
-    config.AddMaps(typeof(ProductProfile).Assembly);
+    config.AddMaps(typeof(Store_Example.Application.MappingProfiles.ProductProfile).Assembly);
+    config.AddMaps(typeof(Endpoint.Site.MappingProfiles.ProductsProfile).Assembly);
 });
 
 builder.Services.AddScoped<IDatabaseContext, DatabaseContext>();
